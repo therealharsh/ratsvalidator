@@ -1,0 +1,50 @@
+<ion-view view-title="Create a new post">
+  <ion-content class="content">
+    <!---.................................................................
+    ...........................INSPECTION INFO............................
+    ...................................................................-->
+    <form id="new-form">
+      <div class="newpost">
+        <!--
+        The ng-repeat here significantly shortened the code for the new
+        insepction. Rather than having each field have its own place here,
+        ng-repeat allowed for the dynamic creation of the fields instead
+        -->
+        <label class="item item-input">
+          <input type="text" placeholder="What's on your mind?">
+        </label>
+
+        <div class="row">
+          <div class="col form-group">
+            <div class="list">
+              <label class="item item-input item-select">
+                <div class="input-label">
+                  Genre
+                </div>
+
+                <select class="form-control" ng-model="formData.opType">
+                  <option>idk</option>
+                  <option>Confession</option>
+                  <option>LOL</option>
+                  <option>Serious</option>
+                  <option>Feels</option>
+                  <option>Sad</option>
+                  <option>Advice</option>
+                </select>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <label class="item item-input">
+          <input type="text" placeholder="Voting option #1">
+          <input type="text" placeholder="Voting option #2">
+        </label>
+
+        <button class="button button-full">
+           Submit
+        </button>
+     
+    </form>
+  </ion-content>
+</ion-view>
