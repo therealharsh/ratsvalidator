@@ -1,16 +1,6 @@
-# Inspector Gadget
+# RatsValidator
 
-A starting project for Ionic that optionally supports using custom SCSS.
-
-New/Edit Form - George L, Lisa, Jake
-
-Database - Adam and Shiyan
-
-View - James
-
-Food Code - Dylan and Anthony
-
-## Using this app
+### Using this app
 
 First, make sure you have [Node.js](https://nodejs.org/en/) installed.
 Install either the LTS (Long Term Support) or Stable versions, both will work
