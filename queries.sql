@@ -43,7 +43,37 @@ CREATE TABLE IF NOT EXISTS comments_ext(
 	response text,
 	cid INT REFERENCES comments(cid), 
 	datetime TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS threads(
+	id SERIAL PRIMARY KEY,
+	username1 VARCHAR(30),
+	username2 VARCHAR(30),
+	datetime TIMESTAMP,
+	ip1 VARCHAR(100),
+	ip2 VARCHAR(100),
+	whoStarted VARCHAR(30)
 );	
+
+CREATE TABLE IF NOT EXISTS threads_ext(
+	id INT REFERENCES threads(id),
+	username VARCHAR(30),
+	ip VARCHAR(100),
+	content text,
+	datetime TIMESTAMP
+);
+
+#THREAD STUFF --------------------------------------------------
+
+#CREATE A NEW THREAD
+INSERT INTO threads(username1, username2, datetime, whoStarted) VALUES(username1, username2, NOW(), usernameOfPersonWhoStarted);
+
+#WHILE CHATTING WITH EACH OTHER
+SELECT alias from users where username = username OR userid = id;
+
+#SENDING NEW MESSAGE
+INSERT INTO threads_ext(id, username, ip, content, datetime) VALUES(idOfThread, username, usersIP, content, NOW());
+
 
 #USER STUFF ----------------------------------------------------
 
