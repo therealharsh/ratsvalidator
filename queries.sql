@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS comments(
 	comment text,
 	voteUp INT,
 	voteDown INT,
-	voters text[],
+	voters VARCHAR[],
 	datetime TIMESTAMP
 );	
 
