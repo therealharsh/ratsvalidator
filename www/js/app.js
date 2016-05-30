@@ -1,7 +1,5 @@
 var app = angular.module('ratsValidator', [
   'ionic',
-  'ngCordova',
-  'signature',
   'ratsValidator.controllers',
   'ratsValidator.services'
 ]);
@@ -10,12 +8,6 @@ var app = angular.module('ratsValidator', [
 app.constant('_',
   window._
 );
-
-app.filter('reverse', function() {
-  return function(items) {
-    return items.slice().reverse();
-  }
-});
 
 app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
