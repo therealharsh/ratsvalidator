@@ -23,3 +23,11 @@ CREATE TABLE IF NOT EXISTS posts_ext(
 	optionTwo VARCHAR(20), 
 	users_who_voted INT[]
 );	
+
+#DELETE USER
+DELETE FROM users where id = userid;
+
+#ADD USER
+INSERT INTO users(username, password, location, ip) VALUES(username, password, location, ip);
+
+
