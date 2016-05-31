@@ -1,138 +1,174 @@
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS posts CASCADE;
+DROP TABLE IF EXISTS posts_ext CASCADE;
+DROP TABLE IF EXISTS comments CASCADE;
+DROP TABLE IF EXISTS comments_ext CASCADE;
+DROP TABLE IF EXISTS threads CASCADE;
+DROP TABLE IF EXISTS threads_ext CASCADE;
+
 CREATE TABLE IF NOT EXISTS users(
-	id SERIAL PRIMARY KEY, 
-	username VARCHAR(30) UNIQUE, 
-	password VARCHAR(15), 
-	date DATE, 
-	location text, 
-	ip VARCHAR(100)
+	uid SERIAL PRIMARY KEY,
+	username VARCHAR(30) UNIQUE,
+	password TEXT,
+	ip TEXT,
+	location text,
+	date DATE
 );
 
 CREATE TABLE IF NOT EXISTS posts(
-	id SERIAL PRIMARY KEY, 
-	content text, 
-	username VARCHAR(30) REFERENCES users(username), 
-	datetime TIMESTAMP,
-	location text, 
-	ip VARCHAR(100)
+	pid SERIAL PRIMARY KEY,
+	username VARCHAR(30) REFERENCES users(username),
+	ip TEXT,
+	content text,
+	location text,
+	datetime TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS posts_ext(
-	id INT REFERENCES posts(id), 
-	no_of_likes INT, 
-	optionOne VARCHAR(20), 
-	optionTwo VARCHAR(20), 
+	pid INT REFERENCES posts(pid),
+	likes INT,
+	optionOne VARCHAR(20),
+	optionTwo VARCHAR(20),
 	optionOneNum INT,
 	optionTwoNum INT,
-	users_who_voted VARCHAR[]
-);	
+	users_voted VARCHAR[]
+);
 
 CREATE TABLE IF NOT EXISTS comments(
 	cid SERIAL PRIMARY KEY,
+	pid INT REFERENCES posts(pid),
 	username VARCHAR(30),
-	post_id INT REFERENCES posts(id), 
 	comment text,
 	voteUp INT,
 	voteDown INT,
 	voters VARCHAR[],
 	datetime TIMESTAMP
-);	
+);
 
-#FOR NESTED COMMENTS
+-- FOR NESTED COMMENTS
 CREATE TABLE IF NOT EXISTS comments_ext(
+	cid INT REFERENCES comments(cid),
 	username VARCHAR(30),
 	response text,
-	cid INT REFERENCES comments(cid), 
 	datetime TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS threads(
-	id SERIAL PRIMARY KEY,
+	tid SERIAL PRIMARY KEY,
 	username1 VARCHAR(30),
 	username2 VARCHAR(30),
-	datetime TIMESTAMP,
-	ip1 VARCHAR(100),
-	ip2 VARCHAR(100),
-	whoStarted VARCHAR(30)
-);	
+	ip1 TEXT,
+	ip2 TEXT,
+	starter VARCHAR(30),
+	datetime TIMESTAMP
+);
 
 CREATE TABLE IF NOT EXISTS threads_ext(
-	id INT REFERENCES threads(id),
+	tid INT REFERENCES threads(tid),
 	username VARCHAR(30),
-	ip VARCHAR(100),
+	ip TEXT,
 	content text,
 	datetime TIMESTAMP
 );
 
-#THREAD STUFF --------------------------------------------------
+-- THREAD STUFF --------------------------------------------------
 
-#CREATE A NEW THREAD
-INSERT INTO threads(username1, username2, datetime, whoStarted) VALUES(username1, username2, NOW(), usernameOfPersonWhoStarted);
+-- CREATE A NEW THREAD
+INSERT INTO threads(username1, username2, starter, datetime)
+VALUES(username1, username2, usernameOfPersonWhoStarted, NOW());
 
-#WHILE CHATTING WITH EACH OTHER
-SELECT alias from users where username = username OR userid = id;
+-- WHILE CHATTING WITH EACH OTHER
+SELECT alias
+FROM users
+WHERE username = username OR userid = id;
 
-#SENDING NEW MESSAGE
-INSERT INTO threads_ext(id, username, ip, content, datetime) VALUES(idOfThread, username, usersIP, content, NOW());
+-- SENDING NEW MESSAGE
+INSERT INTO threads_ext(tid, username, ip, content, datetime)
+VALUES(idOfThread, username, usersIP, content, NOW());
 
 
-#USER STUFF ----------------------------------------------------
+-- USER STUFF ----------------------------------------------------
 
-#ADD USER
-INSERT INTO users(username, password, date, location, ip) VALUES(username, password, current_date, location, ip);
+-- ADD USER
+INSERT INTO users(username, password, ip, location, date);
+VALUES(username, password, ip, location, current_date);
 
-#DELETE USER
+-- DELETE USER
 DELETE FROM users where id = userid;
 
-#POST STUFF -----------------------------------------------------
+-- POST STUFF -----------------------------------------------------
 
-#ADD POST
-INSERT INTO posts(content, username, datetime, location, ip) VALUES(content, username, NOW(), location, ip);
-INSERT INTO posts_ext(id, optionOne, optionTwo) VALUES(post_id, optionOne, optionTwo);
+-- ADD POST
+INSERT INTO posts(username, ip, content, location, datetime)
+VALUES(username, ip, content, location, NOW());
 
-#VOTE ON POST OPTIONONE
-UPDATE posts_ext SET no_of_likes = no_of_likes + 1 WHERE posts_ext.id = post.id;
-UPDATE posts_ext SET optionOneNum = optionOne + 1 WHERE posts_ext.id = post.id;
-UPDATE posts_ext SET users_who_voted = array_append(users_who_voted, username);
+INSERT INTO posts_ext(id, optionOne, optionTwo)
+VALUES(pid, optionOne, optionTwo);
 
-#VOTE ON POST OPTIONTWO
-UPDATE posts_ext SET no_of_likes = no_of_likes + 1 WHERE posts_ext.id = post.id;
-UPDATE posts_ext SET optionTwoNum = optionTwo + 1 WHERE posts_ext.id = post.id;
-UPDATE posts_ext SET users_who_voted = array_append(users_who_voted, username);
+-- VOTE ON POST OPTIONONE
+UPDATE posts_ext
+SET likes = likes + 1
+WHERE posts_ext.pid = post.pid;
 
-#DELETE POST
-DELETE FROM posts where id = id; #CHECK IF USER IS ORIGINAL POSTER
+UPDATE posts_ext
+SET optionOneNum = optionOne + 1
+WHERE posts_ext.pid = post.pid;
 
-#COMMENT STUFF ----------------------------------------------------
+UPDATE posts_ext
+SET voters = array_append(voters, username);
 
-#ADD COMMENT TO POST
-INSERT INTO comments(username, post_id, comment, datetime) VALUES(username, post_id, comment, NOW());
+-- VOTE ON POST OPTIONTWO
+UPDATE posts_ext
+SET likes = likes + 1
+WHERE posts_ext.pid = post.pid;
 
-#EDIT COMMENT
-UPDATE comments SET comment = comment WHERE cid = cid; #CHECK IF ORIGINAL COMMENTER
+UPDATE posts_ext
+SET optionTwoNum = optionTwo + 1
+WHERE posts_ext.pid = post.pid;
 
-#DELETE COMMENT
-DELETE FROM comments WHERE cid = cid; #CHECK IF ORIGINAL COMMENTER
+UPDATE posts_ext
+SET voters = array_append(voters, username);
 
-#VOTEUP ON COMMENT
-UPDATE comments SET voteUp = voteUp + 1 WHERE cid = cid;
-UPDATE comments SET voters = array_append(voters, username);
+-- DELETE POST
+DELETE FROM posts
+WHERE pid = pid; -- CHECK IF USER IS ORIGINAL POSTER
 
-#VOTEDOWN ON COMMENT
-UPDATE comments SET voteDown = voteDown + 1 WHERE cid = cid;
-UPDATE comments SET voters = array_append(voters, username);
+-- COMMENT STUFF ----------------------------------------------------
 
-#BASIC COMMANDS
+-- ADD COMMENT TO POST
+INSERT INTO comments(pid, username, comment, datetime)
+VALUES(pid, username, comment, NOW());
+
+-- EDIT COMMENT
+UPDATE comments
+SET comment = comment
+WHERE cid = cid; -- CHECK IF ORIGINAL COMMENTER
+
+-- DELETE COMMENT
+DELETE FROM comments
+WHERE cid = cid; -- CHECK IF ORIGINAL COMMENTER
+
+-- VOTEUP ON COMMENT
+UPDATE comments
+SET voteUp = voteUp + 1
+WHERE cid = cid;
+
+UPDATE comments
+SET voters = array_append(voters, username);
+
+-- VOTEDOWN ON COMMENT
+UPDATE comments
+SET voteDown = voteDown + 1
+WHERE cid = cid;
+
+UPDATE comments
+SET voters = array_append(voters, username);
+
+-- BASIC COMMANDS
 SELECT * FROM posts;
-SELECT * FROM comments WHERE postid = somePostID;
-SELECT * FROM comments_ext WHERE cid = cid; #TO GET NESTED COMMENTS
 
+SELECT * FROM comments
+WHERE postid = somePostID;
 
-
-
-
-
-
-
-
-
-
+SELECT * FROM comments_ext
+WHERE cid = cid; -- TO GET NESTED COMMENTS
