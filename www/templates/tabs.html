@@ -1,0 +1,29 @@
+<ion-tabs class="tabs-icon-top tabs-color-active-positive">
+  <!-- Home -->
+  <ion-tab title="Home" icon-on="ion-ios-home-outline" icon-off="ion-ios-home-outline" href="#/tabs/dash">
+    <ion-nav-view name="dash"></ion-nav-view>
+  </ion-tab>
+
+  <!-- New Post -->
+  <ion-tab title="New Post" icon-on="ion-ios-compose-outline" icon-off="ion-ios-compose-outline" href="#/tabs/newpost">
+    <ion-nav-view name="newpost"></ion-nav-view>
+  </ion-tab>
+
+  <!-- My Posts -->
+  <ion-tab title="My Posts" icon-on="ion-ios-person-outline" icon-off="ion-ios-person-outline" href="#/tabs/myposts">
+    <ion-nav-view name="myposts"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Messages -->
+  <ion-tab title="Messages" icon-on="ion-ios-email-outline" icon-off="ion-ios-email-outline" href="#/tabs/messages">
+    <ion-nav-view name="messages"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Account -->
+  <ion-tab title="Account" icon-on="ion-ios-gear-outline" icon-off="ion-ios-gear-outline" href="#/tabs/account">
+    <ion-nav-view name="account"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Log Out -->
+  <ion-tab title="Log Out" icon-on="ion-log-out" icon-off="ion-log-out" ng-controller="EntryCtrl" ng-click="logout()"></ion-tab>
+</ion-tabs>

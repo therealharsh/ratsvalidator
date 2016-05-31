@@ -38,31 +38,75 @@ app.config(['$ionicConfigProvider', function($ionicConfigProvider) {
 // Set up the various states which the app can be in.
 // Each state's controller can be found in controllers.js
 app.config(function($stateProvider, $urlRouterProvider) {
-  $stateProvider.state('page', {
-    url: '/page',
+  $stateProvider
+
+  .state('tabs', {
+    url: '/tabs',
     abstract: true,
-    templateUrl: 'templates/pages.html'
+    templateUrl: 'templates/tabs.html'
   })
 
-  .state('page.dash', {
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html',
+    controller: 'EntryCtrl'
+  })
+
+  .state('signup', {
+    url: '/signup',
+    templateUrl: 'templates/signup.html',
+    controller: 'EntryCtrl'
+  })
+
+  .state('tabs.dash', {
     url: '/dash',
     views: {
-      'page-dash': {
+      'dash': {
         templateUrl: 'templates/dash.html',
         controller: 'DashCtrl'
       }
     }
   })
 
-  .state('page.newPost', {
-    url: '/newPost',
+  .state('tabs.newpost', {
+    url: '/newpost',
     views: {
-      'page-newpost': {
+      'newpost': {
         templateUrl: 'templates/newPost.html',
-        controller: 'newPostCtrl'
+        controller: 'NewPostCtrl'
       }
     }
   })
 
-  $urlRouterProvider.otherwise('/page/dash');
+  .state('tabs.myposts', {
+    url: '/myposts',
+    views: {
+      'myposts': {
+        templateUrl: 'templates/myposts.html',
+        controller: 'MyPostsCtrl'
+      }
+    }
+  })
+
+  .state('tabs.messages', {
+    url: '/messages',
+    views: {
+      'messages': {
+        templateUrl: 'templates/messages.html',
+        controller: 'MessagesCtrl'
+      }
+    }
+  })
+
+  .state('tabs.account', {
+    url: '/account',
+    views: {
+      'account': {
+        templateUrl: 'templates/account.html',
+        controller: 'AccountCtrl'
+      }
+    }
+  })
+
+  $urlRouterProvider.otherwise('/tabs/dash');
 });
