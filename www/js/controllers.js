@@ -8,7 +8,7 @@ app.controller('DashCtrl', function($scope, $state) {
   $scope.doRefresh = function() {
     // here refresh data code
     $scope.$broadcast('scroll.refreshComplete');
-    $scope.$apply()
+    $scope.$apply();
   };
 });
 
@@ -22,28 +22,21 @@ app.controller('EntryCtrl', function($scope, $state, $ionicHistory, Entry) {
   $scope.login = function() {
     Entry.login().then(function(res) {
       console.log(res);
+      localStorage.loggedIn = 'true';
+      $state.go('tabs.dash');
     }, function(err) {
       console.log(err);
     });
-
-    localStorage.loggedIn = 'true';
-    console.log(localStorage.loggedIn);
-    $state.go('tabs.dash');
   };
 
   $scope.signup = function() {
     Entry.signup().then(function(res) {
       console.log(res);
+      $state.go('login');
     }, function(err) {
       console.log(err);
     });
-
-    $state.go('login');
   };
-
-  $scope.$on('logout', function() {
-    console.log('lkasjda');
-  })
 
   $scope.logout = function() {
     $ionicHistory.clearCache();
