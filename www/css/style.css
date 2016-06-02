@@ -12,7 +12,7 @@ p{
 
 /* Popup CSS */
 .popup-head {
-  background-color: #ffc900;
+  display: none;
 }
 
 .popup-title {
@@ -21,9 +21,20 @@ p{
 
 .popup-body {
   text-align: center;
+
+  margin: 20px 0 20px 0;
 }
 
 .popup-buttons .button:last-child {
   background-color: #ffc900;
 }
 
+/* Login/Signup CSS */
+.entry-redirect {
+  font-size: 16px;
+  margin-top: 40px;
+}
+
+.entry-redirect a {
+  text-decoration: none;
+}
