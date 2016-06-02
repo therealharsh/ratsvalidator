@@ -9,3 +9,21 @@ li{
 p{
   color: #444;
 }
+
+/* Popup CSS */
+.popup-head {
+  background-color: #ffc900;
+}
+
+.popup-title {
+  color: #ffffff;
+}
+
+.popup-body {
+  text-align: center;
+}
+
+.popup-buttons .button:last-child {
+  background-color: #ffc900;
+}
+
