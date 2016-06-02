@@ -4,6 +4,7 @@ var db = null;
 app.factory('Entry', function($http) {
   var form = {
     username: '',
+    alias: '',
     password: ''
   };
 
@@ -16,6 +17,7 @@ app.factory('Entry', function($http) {
     resetForm: function() {
       form = {
         username: '',
+        alias: '',
         password: ''
       };
     },
@@ -25,18 +27,18 @@ app.factory('Entry', function($http) {
       // Send login form data to the server
       return $http({
         method: 'POST',
-        url: 'rest-api-server-address:port/login',
-        // headers: {
-        //   'Content-Type': 'application/x-www-form-urlencoded'
-        // },
-        // transformRequest: function(obj) {
-        //   var str = [];
-        //   for (var p in obj) {
-        //     str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-        //   }
+        url: 'http://localhost:3000/login',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        transformRequest: function(obj) {
+          var str = [];
+          for (var p in obj) {
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+          }
 
-        //   return str.join("&");
-        // },
+          return str.join("&");
+        },
         data: form
       });
     },
@@ -46,18 +48,18 @@ app.factory('Entry', function($http) {
       // Send sign up form data to the server
       return $http({
         method: 'POST',
-        url: 'rest-api-server-address:port/signup',
-        // headers: {
-        //   'Content-Type': 'application/x-www-form-urlencoded'
-        // },
-        // transformRequest: function(obj) {
-        //   var str = [];
-        //   for (var p in obj) {
-        //     str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-        //   }
+        url: 'http://localhost:3000/signup',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        transformRequest: function(obj) {
+          var str = [];
+          for (var p in obj) {
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+          }
 
-        //   return str.join("&");
-        // },
+          return str.join("&");
+        },
         data: form
       });
     }

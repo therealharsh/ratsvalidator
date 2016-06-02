@@ -12,29 +12,46 @@ app.controller('DashCtrl', function($scope, $state) {
   };
 });
 
-app.controller('EntryCtrl', function($scope, $state, $ionicHistory, Entry) {
+app.controller('EntryCtrl', function($scope, $state, $ionicPopup, $ionicHistory,
+                                     Entry) {
   if (localStorage.loggedIn) {
     $state.go('tabs.dash');
   }
 
+  Entry.resetForm();
   $scope.form = Entry.form();
 
   $scope.login = function() {
     Entry.login().then(function(res) {
-      console.log(res);
+      if (res.data.message) {
+        $ionicPopup.alert({
+          template: res.data.message
+        });
+        return;
+      }
+
       localStorage.loggedIn = 'true';
       $state.go('tabs.dash');
     }, function(err) {
-      console.log(err);
+      $ionicPopup.alert({
+        template: err.data.message
+      });
     });
   };
 
   $scope.signup = function() {
     Entry.signup().then(function(res) {
-      console.log(res);
+      if (res.data.message) {
+        $ionicPopup.alert({
+          title: 'Sign Up',
+          template: res.data.message
+        });
+        return;
+      }
+
       $state.go('login');
     }, function(err) {
-      console.log(err);
+      console.log(err.data);
     });
   };
 
