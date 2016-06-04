@@ -1,16 +1,7 @@
-li{
-  border-bottom: 0.5px solid #e6e6e6;
-  padding-top: 2%;
-  padding-bottom: 1%;
-  padding-right: 1%;
-  padding-left: 1%;
-}
+/*******************/
+/* Ionic Popup CSS */
+/*******************/
 
-p{
-  color: #444;
-}
-
-/* Popup CSS */
 .popup-head {
   display: none;
 }
@@ -29,7 +20,10 @@ p{
   background-color: #ffc900;
 }
 
+/********************/
 /* Login/Signup CSS */
+/********************/
+
 .entry-redirect {
   font-size: 16px;
   margin-top: 40px;
@@ -37,4 +31,17 @@ p{
 
 .entry-redirect a {
   text-decoration: none;
+}
+
+/************/
+/* Dash CSS */
+/************/
+
+.dash-post {
+  border-bottom: 0.5px solid #e6e6e6;
+  /*padding: 15px 10px 5px 10px;*/
+}
+
+.dash-post-content {
+  color: #444;
 }

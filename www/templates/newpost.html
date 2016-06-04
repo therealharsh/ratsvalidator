@@ -1,9 +1,9 @@
-<ion-view view-title="Create a new post">
+<ion-view view-title="Create a New Post">
   <ion-content class="content">
-    <form id="new-form">
-      <div class="newpost">
+    <form id="new-form" ng-submit="post()">
+      <div class="new-post">
         <label class="item item-input">
-          <input type="text" placeholder="What's on your mind?">
+          <input type="text" placeholder="What's on your mind?" ng-model="form.content">
         </label>
 
         <div class="row">
@@ -14,7 +14,8 @@
                   Genre
                 </div>
 
-                <select class="form-control">
+                <select class="form-control" ng-model="form.genre">
+                  <option disabled selected value>Select</option>
                   <option>idk</option>
                   <option>Confession</option>
                   <option>LOL</option>
@@ -29,14 +30,18 @@
         </div>
 
         <label class="item item-input">
-          <input type="text" placeholder="Voting option #1">
-          <input type="text" placeholder="Voting option #2">
+          <input type="text" placeholder="Voting Option #1" ng-model="form.optionOne">
         </label>
 
-        <button class="button button-full">
-           Submit
-        </button>
+        <label class="item item-input">
+          <input type="text" placeholder="Voting Option #2" ng-model="form.optionTwo">
+        </label>
 
+        <div class="padding">
+          <button class="button button-block button-energized">
+            Submit
+          </button>
+        </div>
     </form>
   </ion-content>
 </ion-view>

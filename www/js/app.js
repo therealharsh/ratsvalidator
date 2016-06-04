@@ -19,6 +19,7 @@ app.run(function($ionicPlatform) {
       cordova.plugins.Keyboard.disableScroll(true);
 
     }
+
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
@@ -27,10 +28,12 @@ app.run(function($ionicPlatform) {
 });
 
 app.config(['$ionicConfigProvider', function($ionicConfigProvider) {
-  // Place the nav-bar on the bottom of the screen for Android
-  $ionicConfigProvider.tabs.position('bottom');
-  // Remove the back button text so it doesn't display the previous view's name
-  $ionicConfigProvider.backButton.previousTitleText(false).text('');
+  // Configuations for Android
+  // $ionicConfigProvider.tabs.position('bottom');
+  // $ionicConfigProvider.navBar.alignTitle('center');
+
+  // Don't display the previous tab's name
+  // $ionicConfigProvider.backButton.previousTitleText(false).text('');
 }]);
 
 // Ionic uses AngularUI Router which uses the concept of states
@@ -49,13 +52,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
   .state('login', {
     url: '/login',
     templateUrl: 'templates/login.html',
-    controller: 'EntryCtrl'
+    controller: 'LoginCtrl'
   })
 
   .state('signup', {
     url: '/signup',
     templateUrl: 'templates/signup.html',
-    controller: 'EntryCtrl'
+    controller: 'SignupCtrl'
   })
 
   .state('tabs.dash', {
@@ -106,7 +109,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         controller: 'AccountCtrl'
       }
     }
-  })
+  });
 
   $urlRouterProvider.otherwise('/tabs/dash');
 });

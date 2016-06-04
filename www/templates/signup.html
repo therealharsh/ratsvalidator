@@ -1,4 +1,11 @@
 <ion-view view-title="Sign Up">
+  <!-- Back button -->
+  <ion-nav-bar class="bar-energized">
+    <ion-nav-back-button id="backButton" class="button-clear">
+      <i class="ion-chevron-left"></i> Back to Login
+    </ion-nav-back-button>
+  </ion-nav-bar>
+
   <ion-content class="content">
     <div class="list">
       <label class="item item-input">
@@ -6,22 +13,28 @@
       </label>
 
       <label class="item item-input">
-        <input type="text" placeholder="Alias" ng-model="form.alias">
+        <input type="text" placeholder="Alias*" ng-model="form.alias">
       </label>
 
       <label class="item item-input">
         <input type="password" placeholder="Password" ng-model="form.password">
       </label>
+
+      <label class="item item-input">
+        <input type="password" placeholder="Re-enter Password" ng-model="form.confirmPassword">
+      </label>
+    </div>
+
+    <div class="row">
+      <div class="col text-center">
+        *Your alias will be the same as your username if left empty
+      </div>
     </div>
 
     <div class="padding">
       <button class="button button-block button-energized" ng-click="signup()">
         Sign Up
       </button>
-
-      <p class="entry-redirect text-center">
-        <a href="#/login">Back to login</a>
-      </p>
     </div>
   </ion-content>
 </ion-view>

@@ -1,18 +1,11 @@
 <ion-view view-title="RatsValidator">
-  <ion-content class="padding" style="overflow: hidden;">
-    <div class="container">
-        <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()"></ion-refresher>
-        <ul>
-          <li>
-            <p>Hi</p>
-          </li>
-          <li>
-            <p>Hello</p>
-          </li>
-          <li>
-            <p>What's up</p>
-          </li>
-        </ul>
-    </div>
+  <ion-content class="padding">
+    <ion-refresher on-refresh="doRefresh()"></ion-refresher>
+
+    <ion-list ng-repeat="post in posts">
+      <ion-item class="dash-post item-borderless">
+        <p class="dash-post-content">{{post.msg}}</p>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>

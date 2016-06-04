@@ -1,12 +1,25 @@
 var app = angular.module('ratsValidator.services', []);
 var db = null;
 
+app.factory('Dash', function($http) {
+  var posts = [];
+
+  return {
+    posts: function() {
+      return posts;
+    },
+
+    recentPosts: function() {
+      return $http({
+        method: 'GET',
+        url: 'http://localhost:3000/posts',
+      });
+    }
+  }
+});
+
 app.factory('Entry', function($http) {
-  var form = {
-    username: '',
-    alias: '',
-    password: ''
-  };
+  var form = {};
 
   return {
     form: function() {
@@ -15,11 +28,7 @@ app.factory('Entry', function($http) {
 
     // Simply reset each value in the form
     resetForm: function() {
-      form = {
-        username: '',
-        alias: '',
-        password: ''
-      };
+      form = {};
     },
 
     login: function() {
@@ -63,5 +72,48 @@ app.factory('Entry', function($http) {
         data: form
       });
     }
+  }
+});
+
+app.factory('NewPost', function($http) {
+  var form = {};
+
+  return {
+    form: function() {
+      return form;
+    },
+
+    clearForm: function() {
+      form = {};
+    },
+
+    post: function(uid) {
+      return $http({
+        method: 'POST',
+        url: 'http://localhost:3000/posts',
+        params: {
+          uid: uid
+        },
+        data: form
+      });
+    }
+  }
+});
+
+app.factory('MyPosts', function($http) {
+  return {
+
+  }
+});
+
+app.factory('Messages', function($http) {
+  return {
+
+  }
+});
+
+app.factory('Account', function($http) {
+  return {
+
   }
 });
