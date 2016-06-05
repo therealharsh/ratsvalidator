@@ -9,10 +9,18 @@ app.factory('Dash', function($http) {
       return posts;
     },
 
+    addPost: function(newPost) {
+      posts.push(newPost);
+    },
+
+    updatePosts: function(newPosts) {
+      posts = newPosts;
+    },
+
     recentPosts: function() {
       return $http({
         method: 'GET',
-        url: 'http://localhost:3000/posts',
+        url: 'http://localhost:3000/posts'
       });
     }
   }
@@ -87,12 +95,12 @@ app.factory('NewPost', function($http) {
       form = {};
     },
 
-    post: function(uid) {
+    post: function(aid) {
       return $http({
         method: 'POST',
         url: 'http://localhost:3000/posts',
         params: {
-          uid: uid
+          aid: aid
         },
         data: form
       });
