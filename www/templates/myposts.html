@@ -1,0 +1,12 @@
+<ion-view view-title="RatsValidator">
+  <ion-content class="padding">
+    <ion-refresher on-refresh="doRefresh()"></ion-refresher>
+
+    <ion-list ng-repeat="post in myPosts">
+      <ion-item class="dash-post item-borderless">
+        <p class="dash-post-content">{{post.content}}</p>
+        <p class="dash-post-content">{{post}}</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

@@ -109,8 +109,26 @@ app.factory('NewPost', function($http) {
 });
 
 app.factory('MyPosts', function($http) {
-  return {
+  var posts = []
 
+  return {
+    posts: function() {
+      return posts;
+    },
+
+    updatePosts: function(newPosts) {
+      posts = newPosts;
+    },
+
+    myPosts: function(aid) {
+      return $http({
+        method: 'GET',
+        url: 'http://localhost:3000/posts',
+        params: {
+          aid: aid
+        }
+      });
+    }
   }
 });
 
