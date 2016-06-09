@@ -30,6 +30,8 @@ app.controller('DashCtrl', function($scope, $state, $ionicPopup, Dash) {
       //   Dash.addPost(post);
       // });
 
+      console.log(res.data.posts);
+
       Dash.updatePosts(res.data.posts);
       $scope.posts = Dash.posts();
     }, function(err) {
@@ -41,7 +43,7 @@ app.controller('DashCtrl', function($scope, $state, $ionicPopup, Dash) {
 
   // Pull to refresh; fetch the most recent posts to display on the Home tab
   $scope.doRefresh = function() {
-    $scope.updatePosts;
+    $scope.updatePosts();
     $scope.$broadcast('scroll.refreshComplete');
     $scope.$apply();
   };
